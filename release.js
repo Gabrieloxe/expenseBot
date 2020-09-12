@@ -14,6 +14,11 @@ function setWebhook() {
     var response = UrlFetchApp.fetch(url);
 }
 
+function dateNow() {
+    var dateNow = new Date;
+    logger.log(dateNow);
+}
+
 
 function sendText(chatId, text, keyBoard) {
     var data = {
@@ -35,8 +40,7 @@ function flatten(arrayOfArrays) {
 
 function doPost(e) {
     //parse user data
-
-
+    var contents = JSON.parse(e.postData.contents);
     //set spreadsheet 
     var expenseSheet = SpreadsheetApp.openById(ssId).getSheetByName("Bot");
 
@@ -67,17 +71,20 @@ function doPost(e) {
         var data = contents.callback_query.data;
 
         switch (data) {
+            case 'setBudget':
+                var budget = expenseSheet.getRange(1, 2).getValue();
+                budget.setValue()
             case 'budget':
                 var budget = expenseSheet.getRange(1, 2).getValue();
-                sendText(id_callback, "P" + budget + " is your allocated budget for the week");
+                sendText(id_callback, "$" + budget + " is your allocated budget for the week");
                 break;
             case 'total':
                 var total = expenseSheet.getRange(2, 2).getValue();
-                sendText(id_callback, "P" + total + " is your total spent so far");
+                sendText(id_callback, "You have spent $" + total + " this in total");
                 break;
             case 'balance':
                 var balance = expenseSheet.getRange(3, 2).getValue();
-                sendText(id_callback, "P" + balance + " is your money left");
+                sendText(id_callback, "You have a balance of $" + balance + " left");
                 break;
             case 'expenses':
                 var expenses = [];
