@@ -10,4 +10,4 @@ Further improvements : To host the application on a server rather than google sh
 
 var token = get from telegram bot father
 var webAppUrl = when you are in google script click deploy as web app
-var ssId = the id after /d/< whatever is over here  > /edit#grid=0
+var ssId = the id after /d/ < whatever is over here>
